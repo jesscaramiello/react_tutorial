@@ -67,7 +67,7 @@ export default function Game() {
   const xIsNext = currentMove % 2 === 0;
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const currentSquares = history[currentMove];
-
+ 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
@@ -80,9 +80,16 @@ export default function Game() {
   }
   const moves = history.map((squares, move) => {
     let description;
+    if(move===currentMove)
+    {
+      description = 'you are at move #' + move;
+      return description
+    }
     if (move > 0) {
       description = 'Go to move #' + move;
-    } else {
+    } 
+    else 
+    {
       description = 'Go to game start';
     }
     return (
@@ -91,6 +98,9 @@ export default function Game() {
       </li>
     );
   });
+  const currentMoveDescription =
+    currentMove > 0 ? `You are at move #${currentMove}` : 'Game start';
+
 
   return (
     <div className="game">
